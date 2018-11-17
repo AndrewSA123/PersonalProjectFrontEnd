@@ -55,11 +55,12 @@ class UpdateMovie extends Component {
         });
     }
 
-    async createMovie(){
+    async updateMovie(){
+        var midvar = document.getElementById('midInput').value;
         var genreid = document.getElementById('genresList').options;
         var actorid = document.getElementById('actorsList').options;
         var directorid = document.getElementById('directorsList').options;
-        var url = "http://localhost:8080/movieAPI/rest/movie/updatemovie/";
+        var url = "http://localhost:8080/movieAPI/rest/movie/updatemovie/" + midvar;
         var genreUrl = "http://localhost:8080/movieAPI/rest/genre/getgenre/" + genreid[genreid.selectedIndex].id;
         var directorUrl = "http://localhost:8080/movieAPI/rest/director/getdirector/" + directorid[directorid.selectedIndex].id;
         var actorUrl = "http://localhost:8080/movieAPI/rest/actor/getactor/" + actorid[actorid.selectedIndex].id;
@@ -68,12 +69,13 @@ class UpdateMovie extends Component {
         var gidvar = await axios.get(genreUrl).then((res) => {return res.data}); 
         var didvar = await axios.get(directorUrl).then((res) => {return res.data}); 
         var data = {
+            mid:midvar,
             title:titlevar,
             aid:{aid:aidvar.ID,name:aidvar.name,age:aidvar.age},
             gid:{gid:gidvar.ID,name:gidvar.name},
             did:{did:gidvar.ID,name:didvar.name,age:didvar.age}
         };
-        axios.post(url, data).then((res) => {window.location.reload()});
+        axios.put(url, data).then((res) => {window.location.reload()});
 
 
     }
@@ -84,6 +86,8 @@ class UpdateMovie extends Component {
     return (
       <div className="CreateMovie">
           <br/>
+          <input id='midInput' type='number' placeholder='Enter Movie ID' className="form-control"/><br/>
+          <br/>
           <input id='titleInput' type='text' placeholder='Enter Title' className="form-control"/><br/>
           <p>Genre</p>
           <select id='genresList' className="form-control"/><br/>
@@ -91,7 +95,7 @@ class UpdateMovie extends Component {
           <select id='directorsList' className="form-control"/><br/>
           <p>Actor</p>  
           <select id='actorsList' className="form-control"/><br/>
-          <button id="SubmitButton" className="btn btn-success" onClick={() => this.createMovie()}>{this.state.type}</button>
+          <button id="SubmitButton" className="btn btn-success" onClick={() => this.updateMovie()}>{this.state.type}</button>
           <div id="createDiv"></div>
       </div>
     );
