@@ -46,14 +46,17 @@ updateFunction = (event) => {
   ReactDOM.render(<UpdateMovie info={event}/>, document.getElementById('createDiv'));
 }
 
- showImages = (cell, rows) => {
+ async showImages (cell, rows){
   console.log(rows);
+  //Get this to return the title
   var titlevar = rows;
-   var test = axios.get("http://www.omdbapi.com/?t=" + titlevar + "&apikey=5f41a62d").then((res) => {
-    this.setState = {
-         imagesvar: res.data.Poster
-       };
-    });
+   var test = await axios.get("http://www.omdbapi.com/?t=" + titlevar + "&apikey=5f41a62d");
+   console.log(test);
+ 
+ this.setState = {
+    imagesvar: test
+   };
+
 }
 
 
