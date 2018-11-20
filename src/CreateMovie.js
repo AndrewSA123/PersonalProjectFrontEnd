@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
-import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
-import { DropdownMenu, MenuItem } from 'react-bootstrap-dropdown-menu';
 import axios from 'axios';
-import ReactDOM from 'react-dom';
 
 class CreateMovie extends Component {
     constructor(props){
         super(props);
         this.state = ({
             tableArray: this.props.classData,
-            type: "Create Movie"
+            type: "Create Movie",
+            port: 8080
         });
     }
 
@@ -23,9 +21,9 @@ class CreateMovie extends Component {
         var genrelist = document.getElementById('genresList');
         var actorlist = document.getElementById('actorsList');
         var directorlist = document.getElementById('directorsList');
-        var genreUrl = "http://localhost:8080/movieAPI/rest/genre/getallgenres";
-        var directorUrl = "http://localhost:8080/movieAPI/rest/director/getalldirectors";
-        var actorUrl = "http://localhost:8080/movieAPI/rest/actor/getallactors";
+        var genreUrl = "http://localhost:" + this.state.port + "/movieAPI/rest/genre/getallgenres";
+        var directorUrl = "http://localhost:" + this.state.port + "/movieAPI/rest/director/getalldirectors";
+        var actorUrl = "http://localhost:" + this.state.port + "/movieAPI/rest/actor/getallactors";
         axios.get(genreUrl).then((res) => {
             for(var i = 0; i <= res.data.length -1; i++){
                 var option = document.createElement("option");
@@ -59,10 +57,10 @@ class CreateMovie extends Component {
         var genreid = document.getElementById('genresList').options;
         var actorid = document.getElementById('actorsList').options;
         var directorid = document.getElementById('directorsList').options;
-        var url = "http://localhost:8080/movieAPI/rest/movie/createmovie";
-        var genreUrl = "http://localhost:8080/movieAPI/rest/genre/getgenre/" + genreid[genreid.selectedIndex].id;
-        var directorUrl = "http://localhost:8080/movieAPI/rest/director/getdirector/" + directorid[directorid.selectedIndex].id;
-        var actorUrl = "http://localhost:8080/movieAPI/rest/actor/getactor/" + actorid[actorid.selectedIndex].id;
+        var url = "http://localhost:" + this.state.port + "/movieAPI/rest/movie/createmovie";
+        var genreUrl = "http://localhost:" + this.state.port + "/movieAPI/rest/genre/getgenre/" + genreid[genreid.selectedIndex].id;
+        var directorUrl = "http://localhost:" + this.state.port + "/movieAPI/rest/director/getdirector/" + directorid[directorid.selectedIndex].id;
+        var actorUrl = "http://localhost:" + this.state.port + "/movieAPI/rest/actor/getactor/" + actorid[actorid.selectedIndex].id;
         var titlevar = document.getElementById('titleInput').value;
         var aidvar = await axios.get(actorUrl).then((res) => {return res.data}); 
         var gidvar = await axios.get(genreUrl).then((res) => {return res.data}); 

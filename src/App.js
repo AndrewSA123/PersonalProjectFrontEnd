@@ -12,7 +12,8 @@ class App extends Component {
   constructor(){
     super();
     this.state = {
-      buttonName:"Refresh Table"
+      buttonName:"Refresh Table",
+      port: 8080
     }
   }
 
@@ -21,15 +22,15 @@ class App extends Component {
   }
 
   renderMovies = () => {
-    var url = "http://localhost:8080/movieAPI/rest/movie/getallmovies";
+    var url = "http://localhost:" + this.state.port + "/movieAPI/rest/movie/getallmovies";
     var response;
     axios.get(url).then((res) =>{
       response = res.data;
-      ReactDOM.render(<MovieTable classData={response} />, document.getElementById('tables'));
+      ReactDOM.render(<MovieTable classData={response}/>, document.getElementById('tables'));
     });
   }
   renderDirectors = () => {
-        var url = "http://localhost:8080/movieAPI/rest/director/getalldirectors";
+        var url = "http://localhost:" + this.state.port + "/movieAPI/rest/director/getalldirectors";
     var response;
     axios.get(url).then((res) =>{
       response = res.data;
@@ -37,15 +38,16 @@ class App extends Component {
     });
   }
   renderGenres = () => {
-    var url = "http://localhost:8080/movieAPI/rest/genre/getallgenres";
+    var url = "http://localhost:" + this.state.port + "/movieAPI/rest/genre/getallgenres";
     var response;
+    
     axios.get(url).then((res) => {
       response = res.data;
-      ReactDOM.render(<GenreTable classData={response} />, document.getElementById('tables'));
+      ReactDOM.render(<GenreTable classData={response}/>, document.getElementById('tables'));
     });
   }
   renderActors = () => {
-    var url = "http://localhost:8080/movieAPI/rest/actor/getallactors";
+    var url = "http://localhost:" + this.state.port + "/movieAPI/rest/actor/getallactors";
     var response;
     axios.get(url).then((res) => {
       response = res.data;
@@ -57,10 +59,10 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-          <button className="btn btn-primary" onClick={() => this.renderMovies()}>Movies</button>
-          <button className="btn btn-primary" onClick={() => this.renderDirectors()}>Directors</button>
-          <button className="btn btn-primary" onClick={() => this.renderGenres()}>Genres</button>
-          <button className="btn btn-primary" onClick={() => this.renderActors()}>Actors</button>
+          <button className="btn btn-primary" onClick={() => this.renderMovies()}><i className="fas fa-film" style={{width:'60px', height:'35px'}}></i></button>
+          <button className="btn btn-primary" onClick={() => this.renderDirectors()}><i className="fas fa-video" style={{width:'60px', height:'35px'}}></i></button>
+          <button className="btn btn-primary" onClick={() => this.renderActors()}><i className="fas fa-user" style={{width:'60px', height:'35px'}}></i></button>
+          <button className="btn btn-primary" onClick={() => this.renderGenres()}><i className="far fa-surprise" style={{width:'60px', height:'35px'}}></i></button>
           <div id="tables">
             <MovieTable />
           </div>

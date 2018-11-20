@@ -1,20 +1,20 @@
 import React, { Component } from 'react';
-import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
-import { DropdownMenu, MenuItem } from 'react-bootstrap-dropdown-menu';
 import axios from 'axios';
-import ReactDOM from 'react-dom';
 
 class UpdateMovie extends Component {
     constructor(props){
         super(props);
         this.state = ({
             tableArray: this.props.classData,
-            type: "Update"
+            type: "Update",
+            port: 8080,
+            info: this.props.info
         });
     }
 
     componentDidMount(){
         {this.populateList()}
+        console.log(this.state.info);
     }
 
 
@@ -23,9 +23,9 @@ class UpdateMovie extends Component {
         var genrelist = document.getElementById('genresList');
         var actorlist = document.getElementById('actorsList');
         var directorlist = document.getElementById('directorsList');
-        var genreUrl = "http://localhost:8080/movieAPI/rest/genre/getallgenres";
-        var directorUrl = "http://localhost:8080/movieAPI/rest/director/getalldirectors";
-        var actorUrl = "http://localhost:8080/movieAPI/rest/actor/getallactors";
+        var genreUrl = "http://localhost:" + this.state.port + "/movieAPI/rest/genre/getallgenres";
+        var directorUrl = "http://localhost:" + this.state.port + "/movieAPI/rest/director/getalldirectors";
+        var actorUrl = "http://localhost:" + this.state.port + "/movieAPI/rest/actor/getallactors";
         axios.get(genreUrl).then((res) => {
             for(var i = 0; i <= res.data.length -1; i++){
                 var option = document.createElement("option");
@@ -60,16 +60,18 @@ class UpdateMovie extends Component {
         var genreid = document.getElementById('genresList').options;
         var actorid = document.getElementById('actorsList').options;
         var directorid = document.getElementById('directorsList').options;
-        var url = "http://localhost:8080/movieAPI/rest/movie/updatemovie/" + midvar;
-        var genreUrl = "http://localhost:8080/movieAPI/rest/genre/getgenre/" + genreid[genreid.selectedIndex].id;
-        var directorUrl = "http://localhost:8080/movieAPI/rest/director/getdirector/" + directorid[directorid.selectedIndex].id;
-        var actorUrl = "http://localhost:8080/movieAPI/rest/actor/getactor/" + actorid[actorid.selectedIndex].id;
+        var url = "http://localhost:" + this.state.port + "/movieAPI/rest/movie/updatemovie/" + midvar;
+        var genreUrl = "http://localhost:" + this.state.port + "/movieAPI/rest/genre/getgenre/" + genreid[genreid.selectedIndex].id;
+        var directorUrl = "http://localhost:" + this.state.port + "/movieAPI/rest/director/getdirector/" + directorid[directorid.selectedIndex].id;
+        var actorUrl = "http://localhost:" + this.state.port + "/movieAPI/rest/actor/getactor/" + actorid[actorid.selectedIndex].id;
         var titlevar = document.getElementById('titleInput').value;
         var aidvar = await axios.get(actorUrl).then((res) => {return res.data}); 
         var gidvar = await axios.get(genreUrl).then((res) => {return res.data}); 
         var didvar = await axios.get(directorUrl).then((res) => {return res.data}); 
+        if(titlevar === "" || titlevar == null){
+            titlevar = document.getElementById('titleInput').placeholder;
+        }
         var data = {
-            mid:midvar,
             title:titlevar,
             aid:{aid:aidvar.ID,name:aidvar.name,age:aidvar.age},
             gid:{gid:gidvar.ID,name:gidvar.name},
@@ -86,9 +88,9 @@ class UpdateMovie extends Component {
     return (
       <div className="CreateMovie">
           <br/>
-          <input id='midInput' type='number' placeholder='Enter Movie ID' className="form-control"/><br/>
+          <input id='midInput' type='number' placeholder='Enter Movie ID' className="form-control" value={this.state.info.mid}/><br/>
           <br/>
-          <input id='titleInput' type='text' placeholder='Enter Title' className="form-control"/><br/>
+          <input id='titleInput' type='text' placeholder='Enter Title' className="form-control" placeholder={this.state.info.title}/><br/>
           <p>Genre</p>
           <select id='genresList' className="form-control"/><br/>
           <p>Director</p>

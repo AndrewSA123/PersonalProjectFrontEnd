@@ -9,7 +9,8 @@ class GenreTable extends Component {
         super(props);
         this.state = ({
             tableArray: this.props.classData,
-            type: "Add Genre"
+            type: "Add Genre",
+            port: 8080
         });
     }
 
@@ -19,7 +20,7 @@ class GenreTable extends Component {
     }
 
     deleteMovie = (event) => {
-      var url = "http://localhost:8080/movieAPI/rest/genre/deletegenre/" + event;
+      var url = "http://localhost:" + this.state.port + "/movieAPI/rest/genre/deletegenre/" + event;
       axios.delete(url).then((res) => {window.location.reload()});
     }
 
@@ -32,7 +33,7 @@ class GenreTable extends Component {
 
 
 refreshGenreTable = () => {
-  var url = "http://localhost:8080/movieAPI/rest/genre/getallgenres";
+  var url = "http://localhost:" + this.state.port + "/movieAPI/rest/genre/getallgenres";
   axios.get(url).then(res => {
     this.setState({
       genreArray: res.data
@@ -48,9 +49,9 @@ refreshGenreTable = () => {
       <div className="movieTable">
 
           <BootstrapTable id="tableList" data={this.state.tableArray} className="table table-striped" search>
-            <TableHeaderColumn dataField='gid' isKey>ID</TableHeaderColumn>
-            <TableHeaderColumn dataField='name'>Name</TableHeaderColumn>
-            <TableHeaderColumn dataField='button' dataFormat={this.createDeleteButton}></TableHeaderColumn>
+            <TableHeaderColumn dataField='gid' isKey dataSort dataAlign='center'>ID</TableHeaderColumn>
+            <TableHeaderColumn dataField='name' dataSort dataAlign='center'>Name</TableHeaderColumn>
+            <TableHeaderColumn dataField='button' dataFormat={this.createDeleteButton} dataAlign='center'></TableHeaderColumn>
           </BootstrapTable>    
           <div id="createDiv"><button id="CreateButton" className="btn btn-success" onClick={() => this.createFunction()}>{this.state.type}</button></div>
 

@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
-import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
-import { DropdownMenu, MenuItem } from 'react-bootstrap-dropdown-menu';
 import axios from 'axios';
-import ReactDOM from 'react-dom';
 
 class CreateGenre extends Component {
     constructor(props){
         super(props);
         this.state = ({
             tableArray: this.props.classData,
-            type: "Create Genre"
+            type: "Create Genre",
+            port: 8080
         });
     }
 
@@ -18,7 +16,7 @@ class CreateGenre extends Component {
 
 
     async createGenre(){
-        var url = "http://localhost:8080/movieAPI/rest/genre/creategenre";
+        var url = "http://localhost:" + this.state.port + "/movieAPI/rest/genre/creategenre";
         var data = {
             name:document.getElementById('nameInput').value
         };

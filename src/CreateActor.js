@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
-import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
-import { DropdownMenu, MenuItem } from 'react-bootstrap-dropdown-menu';
 import axios from 'axios';
-import ReactDOM from 'react-dom';
 
 class CreateActor extends Component {
     constructor(props){
         super(props);
         this.state = ({
             tableArray: this.props.classData,
-            type: "Create Actor"
+            type: "Create Actor",
+            port: 8080
         });
     }
 
@@ -18,7 +16,7 @@ class CreateActor extends Component {
 
 
     async createActor(){
-        var url = "http://localhost:8080/movieAPI/rest/actor/createactor";
+        var url = "http://localhost:" + this.state.port + "/movieAPI/rest/actor/createactor";
         var data = {
             name:document.getElementById('nameInput').value,
             age:document.getElementById('ageInput').value

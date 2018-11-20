@@ -11,8 +11,15 @@ class MovieTable extends Component {
         this.state = ({
             tableArray: this.props.classData,
             type: "Add Movie",
-            updateType: "Update Movie"
+            updateType: "Update Movie",
+            port: 8080,
+            data:[],
+            imagesvar: ""
         });
+    }
+
+    componentDidMount(){
+      this.showImages()
     }
 
 
@@ -21,38 +28,52 @@ class MovieTable extends Component {
     }
 
     deleteMovie = (event) => {
-      var url = "http://localhost:8080/movieAPI/rest/movie/deletemovie/" + event;
+      var url = "http://localhost:" + this.state.port + "/movieAPI/rest/movie/deletemovie/" + event;
       axios.delete(url).then((res) => {window.location.reload()});
     }
 
     showDescription = (cell, row) => {
       return cell.name;
     }
+    createUpdateButton = (cell, rows) => {
+        return <button id={rows.mid} className="btn btn-warning" onClick={() => this.updateFunction(rows)}>Update</button>;
+    }
 
 createFunction = () => {
   ReactDOM.render(<CreateMovie />, document.getElementById('createDiv'));
 }
-updateFunction = () => {
-  ReactDOM.render(<UpdateMovie />, document.getElementById('createDiv'));
+updateFunction = (event) => {
+  ReactDOM.render(<UpdateMovie info={event}/>, document.getElementById('createDiv'));
+}
+
+ showImages = (cell, rows) => {
+  console.log(rows);
+  var titlevar = rows;
+   var test = axios.get("http://www.omdbapi.com/?t=" + titlevar + "&apikey=5f41a62d").then((res) => {
+    this.setState = {
+         imagesvar: res.data.Poster
+       };
+    });
 }
 
 
   render() {
     return (
-      <div className="movieTable">
+      <div className="movieTable" >
 
-          <BootstrapTable id="tableList" data={this.state.tableArray} className="table table-striped" search>
-            <TableHeaderColumn dataField='mid' isKey>ID</TableHeaderColumn>
-            <TableHeaderColumn dataField='title'>Title</TableHeaderColumn>
-            <TableHeaderColumn dataField='aid' dataFormat={this.showDescription}>Actor</TableHeaderColumn>
-            <TableHeaderColumn dataField='did' dataFormat={this.showDescription}>Director</TableHeaderColumn>
-            <TableHeaderColumn dataField='gid' dataFormat={this.showDescription}>Genre</TableHeaderColumn>
-            <TableHeaderColumn dataField='button' dataFormat={this.createDeleteButton}></TableHeaderColumn>
+          <BootstrapTable id="tableList" data={this.state.tableArray} className="table table-striped" search scrollable >
+            <TableHeaderColumn dataField='mid' isKey dataSort dataAlign='center'>ID</TableHeaderColumn>
+            <TableHeaderColumn dataField={this.state.images} dataFormat={this.showImages} dataAlign='center'>Image</TableHeaderColumn>
+            <TableHeaderColumn tdStyle={{ whiteSpace: 'unset' }} dataField='title' dataSort dataAlign='center'>Title</TableHeaderColumn>
+            <TableHeaderColumn dataField='aid' dataFormat={this.showDescription} dataAlign='center'>Actor</TableHeaderColumn>
+            <TableHeaderColumn dataField='did' dataFormat={this.showDescription} dataAlign='center'>Director</TableHeaderColumn>
+            <TableHeaderColumn dataField='gid' dataFormat={this.showDescription} dataAlign='center'>Genre</TableHeaderColumn>
+            <TableHeaderColumn dataField='updateButton' dataFormat={this.createUpdateButton} dataAlign='center'></TableHeaderColumn>
+            <TableHeaderColumn dataField='button' dataFormat={this.createDeleteButton} dataAlign='center'></TableHeaderColumn>  
           </BootstrapTable>    
 
           <div id="createDiv">
             <button id="CreateButton" className="btn btn-success" onClick={() => this.createFunction()}>{this.state.type}</button><br/>
-            <button id="UpdateButton" className="btn btn-info" onClick={() => this.updateFunction()}>{this.state.updateType}</button>
           </div>
       </div>
     );
