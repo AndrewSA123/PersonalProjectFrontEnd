@@ -11,7 +11,7 @@ class DirectorTable extends Component {
             tableArray: this.props.classData,
             type: "Add Director",
             port: 8080,
-            IP: "http://35.233.28.63:"
+            IP: "http://35.242.149.138:"
         });
     }
 

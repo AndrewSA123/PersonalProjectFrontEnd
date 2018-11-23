@@ -8,7 +8,7 @@ class CreateGenre extends Component {
             tableArray: this.props.classData,
             type: "Create Genre",
             port: 8080,
-            IP: "http://35.233.28.63:"
+            IP: "http://35.242.149.138:"
         });
     }
 
