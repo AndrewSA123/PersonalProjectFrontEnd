@@ -63,7 +63,7 @@ class CreateMovie extends Component {
         var directorUrl = this.state.ip + this.state.port + "/movieAPI/rest/director/getdirector/" + directorid[directorid.selectedIndex].id;
         var actorUrl = this.state.ip + this.state.port + "/movieAPI/rest/actor/getactor/" + actorid[actorid.selectedIndex].id;
         var titlevar = document.getElementById('titleInput').value;
-        var aidvar = await axios.get(actorUrl).then((res) => {return res.data}); 
+        var aidvar = await axios.get(actorUrl).then((res) => {console.log(res.data);return res.data}); 
         var gidvar = await axios.get(genreUrl).then((res) => {return res.data}); 
         var didvar = await axios.get(directorUrl).then((res) => {return res.data}); 
         var data = {
