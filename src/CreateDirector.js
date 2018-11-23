@@ -8,7 +8,7 @@ class CreateDirector extends Component {
             tableArray: this.props.classData,
             type: "Create Director",
             port: 8080,
-            IP: "https://35.233.28.63/"
+            IP: "http://35.233.28.63/"
         });
     }
 
