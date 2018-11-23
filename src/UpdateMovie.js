@@ -15,7 +15,6 @@ class UpdateMovie extends Component {
 
     componentDidMount(){
         {this.populateList()}
-        console.log(this.state.info);
     }
 
 

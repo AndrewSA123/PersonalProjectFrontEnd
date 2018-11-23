@@ -18,14 +18,14 @@ class CreateMovie extends Component {
 
 
 
-    async populateList(){
+    populateList = () => {
         var genrelist = document.getElementById('genresList');
         var actorlist = document.getElementById('actorsList');
         var directorlist = document.getElementById('directorsList');
-        var genreUrl = this.state.ip + this.state.port + "/movieAPI/rest/genre/getallgenres";
-        var directorUrl = this.state.ip + this.state.port + "/movieAPI/rest/director/getalldirectors";
-        var actorUrl = this.state.ip + this.state.port + "/movieAPI/rest/actor/getallactors";
-        await axios.get(genreUrl).then((res) => {
+        var genreUrl = this.state.IP + this.state.port + "/movieAPI/rest/genre/getallgenres";
+        var directorUrl = this.state.IP + this.state.port + "/movieAPI/rest/director/getalldirectors";
+        var actorUrl = this.state.IP + this.state.port + "/movieAPI/rest/actor/getallactors";
+        axios.get(genreUrl).then((res) => {
             for(var i = 0; i <= res.data.length -1; i++){
                 var option = document.createElement("option");
                 option.id = res.data[i].gid;
@@ -34,7 +34,7 @@ class CreateMovie extends Component {
                 genrelist.appendChild(option);
             }
         });
-        await axios.get(directorUrl).then((res) => {
+        axios.get(directorUrl).then((res) => {
             for(var i = 0; i <= res.data.length -1; i++){
                 var option = document.createElement("option");
                 option.id = res.data[i].did;
@@ -43,7 +43,7 @@ class CreateMovie extends Component {
                 directorlist.appendChild(option);
             }
         });
-        await axios.get(actorUrl).then((res) => {
+        axios.get(actorUrl).then((res) => {
             for(var i = 0; i <= res.data.length -1; i++){
                 var option = document.createElement("option");
                 option.id = res.data[i].aid;
