@@ -10,7 +10,8 @@ class DirectorTable extends Component {
         this.state = ({
             tableArray: this.props.classData,
             type: "Add Director",
-            port: 8080
+            port: 8080,
+            IP: "http://35.233.28.63:"
         });
     }
 
@@ -20,7 +21,7 @@ class DirectorTable extends Component {
     }
 
     deleteMovie = (event) => {
-      var url = "http://localhost:" + this.state.port + "/movieAPI/rest/director/deletedirector/" + event;
+      var url = this.state.IP + this.state.port + "/movieAPI/rest/director/deletedirector/" + event;
       axios.delete(url).then((res) => {window.location.reload()});
     }
 

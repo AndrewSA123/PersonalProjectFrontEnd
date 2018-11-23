@@ -11,7 +11,7 @@ class ActorTable extends Component {
             tableArray: this.props.classData,
             type: "Add Actor",
             port: 8080,
-            IP: "http://35.242.149.138:"
+            IP: "http://35.233.28.63:"
         });
     }
 
