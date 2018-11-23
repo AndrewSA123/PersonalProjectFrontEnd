@@ -16,7 +16,7 @@ class MovieTable extends Component {
             port: 8080,
             data:[],
             imagesvar: "",
-            IP: "http://35.242.149.138:"
+            IP: "https://35.233.28.63/"
         });
     }
 

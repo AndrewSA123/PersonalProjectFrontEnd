@@ -14,7 +14,7 @@ class App extends Component {
     this.state = {
       buttonName:"Refresh Table",
       port: 8080,
-      IP: "http://35.242.149.138:"
+      IP: "https://35.233.28.63/"
     }
   }
 
