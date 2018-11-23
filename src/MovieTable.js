@@ -4,6 +4,7 @@ import axios from 'axios';
 import ReactDOM from 'react-dom';
 import CreateMovie  from './CreateMovie';
 import UpdateMovie from './UpdateMovie';
+import Image from './image.js';
 
 class MovieTable extends Component {
     constructor(props){
@@ -14,12 +15,13 @@ class MovieTable extends Component {
             updateType: "Update Movie",
             port: 8080,
             data:[],
-            imagesvar: ""
+            imagesvar: "",
+            IP: "http://35.242.149.138:"
         });
     }
 
     componentDidMount(){
-      this.showImages()
+      // this.showImages();
     }
 
 
@@ -28,7 +30,7 @@ class MovieTable extends Component {
     }
 
     deleteMovie = (event) => {
-      var url = "http://localhost:" + this.state.port + "/movieAPI/rest/movie/deletemovie/" + event;
+      var url = this.state.IP + this.state.port + "/movieAPI/rest/movie/deletemovie/" + event;
       axios.delete(url).then((res) => {window.location.reload()});
     }
 
@@ -46,17 +48,8 @@ updateFunction = (event) => {
   ReactDOM.render(<UpdateMovie info={event}/>, document.getElementById('createDiv'));
 }
 
- async showImages (cell, rows){
-  console.log(rows);
-  //Get this to return the title
-  var titlevar = rows;
-   var test = await axios.get("http://www.omdbapi.com/?t=" + titlevar + "&apikey=5f41a62d");
-   console.log(test);
- 
- this.setState = {
-    imagesvar: test
-   };
-
+showImages (cell, rows){
+ return <Image imageSrc={rows.title} />
 }
 
 
@@ -65,8 +58,8 @@ updateFunction = (event) => {
       <div className="movieTable" >
 
           <BootstrapTable id="tableList" data={this.state.tableArray} className="table table-striped" search scrollable >
-            <TableHeaderColumn dataField='mid' isKey dataSort dataAlign='center'>ID</TableHeaderColumn>
-            <TableHeaderColumn dataField={this.state.images} dataFormat={this.showImages} dataAlign='center'>Image</TableHeaderColumn>
+            <TableHeaderColumn width={'5%'} dataField='mid' isKey dataSort dataAlign='center'>ID</TableHeaderColumn>
+            <TableHeaderColumn dataFormat={this.showImages.bind(this)} dataAlign='center'>Image</TableHeaderColumn>
             <TableHeaderColumn tdStyle={{ whiteSpace: 'unset' }} dataField='title' dataSort dataAlign='center'>Title</TableHeaderColumn>
             <TableHeaderColumn dataField='aid' dataFormat={this.showDescription} dataAlign='center'>Actor</TableHeaderColumn>
             <TableHeaderColumn dataField='did' dataFormat={this.showDescription} dataAlign='center'>Director</TableHeaderColumn>

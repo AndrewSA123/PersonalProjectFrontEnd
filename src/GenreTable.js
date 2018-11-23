@@ -10,7 +10,8 @@ class GenreTable extends Component {
         this.state = ({
             tableArray: this.props.classData,
             type: "Add Genre",
-            port: 8080
+            port: 8080,
+            IP: "http://35.242.149.138:"
         });
     }
 
@@ -20,7 +21,7 @@ class GenreTable extends Component {
     }
 
     deleteMovie = (event) => {
-      var url = "http://localhost:" + this.state.port + "/movieAPI/rest/genre/deletegenre/" + event;
+      var url = this.state.IP + this.state.port + "/movieAPI/rest/genre/deletegenre/" + event;
       axios.delete(url).then((res) => {window.location.reload()});
     }
 
@@ -33,7 +34,7 @@ class GenreTable extends Component {
 
 
 refreshGenreTable = () => {
-  var url = "http://localhost:" + this.state.port + "/movieAPI/rest/genre/getallgenres";
+  var url = this.state.IP + this.state.port + "/movieAPI/rest/genre/getallgenres";
   axios.get(url).then(res => {
     this.setState({
       genreArray: res.data

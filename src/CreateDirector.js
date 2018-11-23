@@ -6,8 +6,9 @@ class CreateDirector extends Component {
         super(props);
         this.state = ({
             tableArray: this.props.classData,
-            type: "Create Movie",
-            port: 8080
+            type: "Create Director",
+            port: 8080,
+            IP: "http://35.242.149.138:"
         });
     }
 
@@ -16,7 +17,7 @@ class CreateDirector extends Component {
 
 
     async createDirector(){
-        var url = "http://localhost:" + this.state.port + "/movieAPI/rest/director/createdirector";
+        var url = this.state.IP + this.state.port + "/movieAPI/rest/director/createdirector";
         var data = {
             name:document.getElementById('nameInput').value,
             age:document.getElementById('ageInput').value

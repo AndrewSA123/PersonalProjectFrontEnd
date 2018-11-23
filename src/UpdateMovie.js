@@ -8,7 +8,8 @@ class UpdateMovie extends Component {
             tableArray: this.props.classData,
             type: "Update",
             port: 8080,
-            info: this.props.info
+            info: this.props.info,
+            IP: "http://35.242.149.138:"
         });
     }
 
@@ -23,9 +24,9 @@ class UpdateMovie extends Component {
         var genrelist = document.getElementById('genresList');
         var actorlist = document.getElementById('actorsList');
         var directorlist = document.getElementById('directorsList');
-        var genreUrl = "http://localhost:" + this.state.port + "/movieAPI/rest/genre/getallgenres";
-        var directorUrl = "http://localhost:" + this.state.port + "/movieAPI/rest/director/getalldirectors";
-        var actorUrl = "http://localhost:" + this.state.port + "/movieAPI/rest/actor/getallactors";
+        var genreUrl = this.state.IP + this.state.port + "/movieAPI/rest/genre/getallgenres";
+        var directorUrl = this.state.IP + this.state.port + "/movieAPI/rest/director/getalldirectors";
+        var actorUrl = this.state.IP + this.state.port + "/movieAPI/rest/actor/getallactors";
         axios.get(genreUrl).then((res) => {
             for(var i = 0; i <= res.data.length -1; i++){
                 var option = document.createElement("option");
@@ -60,10 +61,10 @@ class UpdateMovie extends Component {
         var genreid = document.getElementById('genresList').options;
         var actorid = document.getElementById('actorsList').options;
         var directorid = document.getElementById('directorsList').options;
-        var url = "http://localhost:" + this.state.port + "/movieAPI/rest/movie/updatemovie/" + midvar;
-        var genreUrl = "http://localhost:" + this.state.port + "/movieAPI/rest/genre/getgenre/" + genreid[genreid.selectedIndex].id;
-        var directorUrl = "http://localhost:" + this.state.port + "/movieAPI/rest/director/getdirector/" + directorid[directorid.selectedIndex].id;
-        var actorUrl = "http://localhost:" + this.state.port + "/movieAPI/rest/actor/getactor/" + actorid[actorid.selectedIndex].id;
+        var url = this.state.IP + this.state.port + "/movieAPI/rest/movie/updatemovie/" + midvar;
+        var genreUrl = this.state.IP + this.state.port + "/movieAPI/rest/genre/getgenre/" + genreid[genreid.selectedIndex].id;
+        var directorUrl = this.state.IP + this.state.port + "/movieAPI/rest/director/getdirector/" + directorid[directorid.selectedIndex].id;
+        var actorUrl = this.state.IP + this.state.port + "/movieAPI/rest/actor/getactor/" + actorid[actorid.selectedIndex].id;
         var titlevar = document.getElementById('titleInput').value;
         var aidvar = await axios.get(actorUrl).then((res) => {return res.data}); 
         var gidvar = await axios.get(genreUrl).then((res) => {return res.data}); 
@@ -75,7 +76,7 @@ class UpdateMovie extends Component {
             title:titlevar,
             aid:{aid:aidvar.ID,name:aidvar.name,age:aidvar.age},
             gid:{gid:gidvar.ID,name:gidvar.name},
-            did:{did:gidvar.ID,name:didvar.name,age:didvar.age}
+            did:{did:didvar.ID,name:didvar.name,age:didvar.age}
         };
         axios.put(url, data).then((res) => {window.location.reload()});
 

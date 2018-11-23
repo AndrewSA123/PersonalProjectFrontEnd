@@ -13,7 +13,8 @@ class App extends Component {
     super();
     this.state = {
       buttonName:"Refresh Table",
-      port: 8080
+      port: 8080,
+      IP: "http://35.242.149.138:"
     }
   }
 
@@ -22,7 +23,7 @@ class App extends Component {
   }
 
   renderMovies = () => {
-    var url = "http://localhost:" + this.state.port + "/movieAPI/rest/movie/getallmovies";
+    var url = this.state.IP + this.state.port + "/movieAPI/rest/movie/getallmovies";
     var response;
     axios.get(url).then((res) =>{
       response = res.data;
@@ -30,7 +31,7 @@ class App extends Component {
     });
   }
   renderDirectors = () => {
-        var url = "http://localhost:" + this.state.port + "/movieAPI/rest/director/getalldirectors";
+        var url = this.state.IP + this.state.port + "/movieAPI/rest/director/getalldirectors";
     var response;
     axios.get(url).then((res) =>{
       response = res.data;
@@ -38,7 +39,7 @@ class App extends Component {
     });
   }
   renderGenres = () => {
-    var url = "http://localhost:" + this.state.port + "/movieAPI/rest/genre/getallgenres";
+    var url = this.state.IP + this.state.port + "/movieAPI/rest/genre/getallgenres";
     var response;
     
     axios.get(url).then((res) => {
@@ -47,7 +48,7 @@ class App extends Component {
     });
   }
   renderActors = () => {
-    var url = "http://localhost:" + this.state.port + "/movieAPI/rest/actor/getallactors";
+    var url = this.state.IP + this.state.port + "/movieAPI/rest/actor/getallactors";
     var response;
     axios.get(url).then((res) => {
       response = res.data;

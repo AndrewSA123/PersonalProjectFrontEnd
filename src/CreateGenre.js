@@ -7,7 +7,8 @@ class CreateGenre extends Component {
         this.state = ({
             tableArray: this.props.classData,
             type: "Create Genre",
-            port: 8080
+            port: 8080,
+            IP: "http://35.242.149.138:"
         });
     }
 
@@ -16,7 +17,7 @@ class CreateGenre extends Component {
 
 
     async createGenre(){
-        var url = "http://localhost:" + this.state.port + "/movieAPI/rest/genre/creategenre";
+        var url = this.state.IP + this.state.port + "/movieAPI/rest/genre/creategenre";
         var data = {
             name:document.getElementById('nameInput').value
         };
