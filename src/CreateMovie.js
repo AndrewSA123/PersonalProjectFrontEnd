@@ -72,6 +72,7 @@ class CreateMovie extends Component {
             gid:{gid:gidvar.ID,name:gidvar.name},
             did:{did:gidvar.ID,name:didvar.name,age:didvar.age}
         };
+        console.log(data);
         axios.post(url, data).then((res) => {window.location.reload()});
 
 
