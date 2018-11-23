@@ -12,10 +12,6 @@ class CreateGenre extends Component {
         });
     }
 
-
-
-
-
     async createGenre(){
         var url = this.state.IP + this.state.port + "/movieAPI/rest/genre/creategenre";
         var data = {
@@ -25,8 +21,6 @@ class CreateGenre extends Component {
 
 
     }
-
-
 
   render() {
     return (
