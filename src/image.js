@@ -23,7 +23,7 @@ class Image extends Component {
 
   render() {
     return (
-        <img src={this.state.imageUrl} style={{height: '50%', width: '80%'}} alt="Haha Butts"/>
+        <img src={this.state.imageUrl} style={{height: '50%', width: '80%'}}/>
     );
   }
 
