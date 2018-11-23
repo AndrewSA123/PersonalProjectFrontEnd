@@ -68,9 +68,9 @@ class CreateMovie extends Component {
         var didvar = await axios.get(directorUrl).then((res) => {return res.data}); 
         var data = {
             title:titlevar,
-            aid:{aid:aidvar.ID,name:aidvar.name,age:aidvar.age},
-            gid:{gid:gidvar.ID,name:gidvar.name},
-            did:{did:gidvar.ID,name:didvar.name,age:didvar.age}
+            aid:{aid:aidvar.aid,name:aidvar.name,age:aidvar.age},
+            gid:{gid:gidvar.gid,name:gidvar.name},
+            did:{did:gidvar.did,name:didvar.name,age:didvar.age}
         };
         console.log(data);
         axios.post(url, data).then((res) => {window.location.reload()});
