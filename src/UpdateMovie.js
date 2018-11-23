@@ -9,7 +9,7 @@ class UpdateMovie extends Component {
             type: "Update",
             port: 8080,
             info: this.props.info,
-            IP: "http://35.233.28.63/"
+            IP: "http://35.233.28.63:"
         });
     }
 

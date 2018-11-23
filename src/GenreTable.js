@@ -11,7 +11,7 @@ class GenreTable extends Component {
             tableArray: this.props.classData,
             type: "Add Genre",
             port: 8080,
-            IP: "http://35.233.28.63/"
+            IP: "http://35.233.28.63:"
         });
     }
 
